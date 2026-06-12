@@ -5,7 +5,7 @@ import pandas as pd
 import psycopg2
 import logging
 from datetime import date
-from db import get_connection
+from db import get_connection, setup_database
 
 logging.basicConfig(
     level=logging.INFO,
@@ -64,6 +64,7 @@ class ETLPipeline:
 
     def run(self):
         """Run the full ETL pipeline — extract, transform, and load."""
+        setup_database()
         try:
             if self.is_database_empty():
                 self.run_historical()
